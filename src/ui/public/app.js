@@ -88,7 +88,7 @@ function applySettings() {
         body: JSON.stringify({ bypassList: settings.bypassList, maxRequests: settings.maxRequests })
     }).catch(() => {});
     closeSettings();
-    showToast("✅ Đã lưu settings!");
+    showToast("Đã lưu settings!");
 }
 
 loadSettings();

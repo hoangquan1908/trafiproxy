@@ -1,4 +1,4 @@
-// NetworkTable.tsx — bảng traffic trung tâm (cột theo roadmap Tháng 2)
+// NetworkTable.tsx — bảng traffic 
 
 import type { TrafficRow } from "../types/traffic";
 
