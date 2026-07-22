@@ -53,3 +53,7 @@ Desktop.ini
 *.tmp
 *.temp
 .cache/
+
+# Báo cáo t?t nghi?p (không d?y lên Git)
+BaoCaoTotNghiep.docx
+*.docx
