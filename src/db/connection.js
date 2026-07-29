@@ -36,6 +36,15 @@ function migrate() {
         CREATE INDEX IF NOT EXISTS idx_requests_url ON requests(url);
         CREATE INDEX IF NOT EXISTS idx_requests_method ON requests(method);
         CREATE INDEX IF NOT EXISTS idx_requests_timestamp ON requests(timestamp);
+
+         CREATE TABLE IF NOT EXISTS rules (
+            id TEXT PRIMARY KEY,           -- UUID khóa chính
+            pattern TEXT NOT NULL,         -- Chuỗi match (VD: api.facebook.com) — dùng như regex
+            target TEXT NOT NULL,          -- Đích redirect (VD: 127.0.0.1:8080)
+            enabled INTEGER DEFAULT 1,     -- 1 = bật, 0 = tắt
+            createdAt TEXT                 -- Thời điểm tạo (ISO string)
+        );
+        CREATE INDEX IF NOT EXISTS idx_rules_pattern ON rules(pattern);
     `);
 }
 

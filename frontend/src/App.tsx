@@ -10,6 +10,7 @@ import { useWSListener } from "./hooks/useWSListener";
 import { useDebounce } from "./hooks/useDebounce";
 import { useTrafficStore } from "./store/trafficStore";
 import type { TrafficRow } from "./types/traffic";
+import RulesPage from "./components/RulesPage";
 
 // Hide assets
 const ASSET_EXT = [".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".css", ".ico", ".woff", ".woff2"];
@@ -126,11 +127,7 @@ export default function App() {
             </>
           )}
 
-          {activeView === "rules" && (
-            <div className="flex-1 flex items-center justify-center text-slate-600 text-sm">
-              Rules — Tháng 3
-            </div>
-          )}
+          {activeView === "rules" && <RulesPage />}
           {activeView === "settings" && (
             <div className="flex-1 flex items-center justify-center text-slate-600 text-sm">
               Settings — sắp có

@@ -4,6 +4,8 @@ const {ensureCA, getCertDir} = require('./ca');
 const {startProxy, stopProxy} = require('./proxy');
 const { migrate } = require("./db/connection");
 const apiServer = require("./api/server");
+const { reloadRulesCache } = require("./db/rules");
+
 require("./api/ws");
 
 // Port mặc định ban đầu
@@ -14,6 +16,7 @@ let activeProxyInstance = null; // Biến để quản lý server proxy
 
 ensureCA();
 migrate();
+reloadRulesCache();
 
 global.startProxyEngine = (targetPort) => {
     if (activeProxyInstance) {

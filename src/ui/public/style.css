@@ -505,12 +505,14 @@ tr.selected {
 #portInput::-webkit-outer-spin-button,
 #portInput::-webkit-inner-spin-button {
   -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
 
 /* Tắt mũi tên cho Firefox */
 #portInput[type=number] {
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 /* style.css */

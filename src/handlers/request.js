@@ -1,7 +1,8 @@
 const fs = require('fs');
 const { getCaCertPath } = require('../ca');
+const { matchRule } = require("../db/rules");
 
-
+// Xu li request vao
 async function onRequestHandler(ctx, callback) {
     if (global.isProxyPaused && global.isProxyPaused()) {
         ctx.proxyToClientResponse.writeHead(503, { "Content-Type": "text/plain" });
@@ -42,6 +43,26 @@ async function onRequestHandler(ctx, callback) {
             body: ""
         }
     };
+    //MAP / REDIRECT RULES
+    const originalHost = req.headers.host || "";
+    
+    const matched = matchRule(originalHost) || matchRule(url);
+
+    if (matched) {
+        const [targetHost, targetPortRaw] = matched.target.split(":");
+        const targetPort = targetPortRaw ? parseInt(targetPortRaw, 10) : ctx.isSSL ?443 : 80;
+
+        if (ctx.proxyToServerRequestOptions) {
+            ctx.proxyToServerRequestOptions.host = targetHost;
+            ctx.proxyToServerRequestOptions.port = targetPort;
+        }
+
+        req.headers.host = matched.target;
+
+        console.log(
+            `[Rules] Redirect: ${originalHost} → ${matched.target} (pattern: ${matched.pattern})`
+          );
+    }
 
     if (global.interceptEnabled !== true) {
         ctx.onRequestData((ctx, chunk, cb) => {
